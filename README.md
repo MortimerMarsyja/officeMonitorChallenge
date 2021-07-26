@@ -1,4 +1,4 @@
-This project is meant to be the initial point for futre projects.
+This is the first state of the office Project
 
 ## Hor Projects Bootstrapper
 
