@@ -1,34 +1,59 @@
 //Deps
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 //Components
-import Logo from '../../00-Components/Logo'
-import CountComponent from '../../00-Components/CountComponent';
+import FridgeComponent from '../../00-Components/FridgeComponent/FridgeComponent';
+import CoffeeComponent from '../../00-Components/CoffeeComponent/CoffeeComponent';
+import TemperatureComponent from '../../00-Components/TemperatureComponent/TemperatureComponent';
+import MoodComponent from '../../00-Components/MoodComponent/MoodComponent';
 //Hooks
-import { useSelector,useDispatch } from 'react-redux';
-//Actions
-import { addToCountAction,substractFromCountAction} from '../../02-Actions/countActions';
+import { useSelector, useDispatch } from 'react-redux';
+// Services
+import { wellbeingServices } from '../../08-Services/wellbeingServices';
 
-const getCountfromStore  = (store) => store.count;
+const getWellBeingFromStore = (store) => store.wellbeing;
+const MINUTE_MS = 6000;
 
-const MainPage = () =>{
-    const count = useSelector(getCountfromStore);
-    const dispatch = useDispatch();
-    return(
+const MainPage = () => {
+    const wellbeing = useSelector(getWellBeingFromStore);
+    const dispatch = useDispatch()
+    const getCoffeeStock = async () => {
+        const response = await wellbeingServices.coffeeStock();
+        dispatch({ type: "UPDATE_COFFEE_VALUE", payload: response })
+    }
+
+    const getCurrentTemperature = async () => {
+        const response = await wellbeingServices.currentTemperature();
+        dispatch({ type: "UPDATE_TEMPERATURE_VALUE", payload: response })
+    }
+
+    const getFridgeContent = async () => {
+        const response = await wellbeingServices.fridgeFoodStock();
+        dispatch({ type: "UPDATE_FRIDGE_VALUE", payload: response })
+    }
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            console.log(wellbeing, 'I am whats in store?');
+            getFridgeContent()
+            getCoffeeStock()
+            getCurrentTemperature()
+        }, MINUTE_MS);
+        return () => clearInterval(interval);
+    })
+    return (
         <>
-            <Logo/>
-            <h1>Hor Project Boostrap V<sub>1</sub></h1>
-            <h2>Sub-Title</h2>
-            <h3>Header</h3>
-            <h4>Sub-Header</h4>
-            <p>
-                Hello this Website is a bootstrap for future projects to be created,
-                this text is just a test to see how text behaves with its styles arranged
-            </p>
-            <CountComponent 
-                value={count} 
-                addFunction={()=>dispatch(addToCountAction(1))} 
-                substractFunction={()=>dispatch(substractFromCountAction(1))}
-            />
+            <header>
+                <img alt="bear logo" id="logo" src="http://app.edited.com/static/img/logo.svg" />
+            </header>
+            <section id="office">
+                <div className="clearfix">
+                    {wellbeing && <FridgeComponent value={wellbeing.fridge} />}
+                    {wellbeing && <CoffeeComponent value={wellbeing.coffee} />}
+                    {wellbeing && <TemperatureComponent value={wellbeing.temperature} />}
+                    {wellbeing && <MoodComponent wellbeing={wellbeing} />}
+                </div>
+            </section>
         </>
     )
 }

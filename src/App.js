@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 //logo
 //styles
 import StyledApp from './07-Styles/app.style';
+import GlobalStyles from './07-Styles/globalStyles.style'
 //Paths
 import PATHS from './04-Constants/Routes'
 //Components
@@ -38,9 +39,12 @@ const COMPONENT_PATHS = [
 
 function App() {
   return (
+    <>
+<GlobalStyles/>
       <StyledApp>
             <Provider store={createReduxStore()}>
               <BrowserRouter>
+              <body>
               <Switch>
                 {COMPONENT_PATHS.map(({path,Component})=>(
                   <Route path={path} exact key={path}>
@@ -55,9 +59,11 @@ function App() {
                 ))}
                   <Redirect to={PATHS.PAGE_NOT_FOUND}/>
               </Switch>
+              </body>
             </BrowserRouter>
           </Provider>
       </StyledApp>
+      </>
   );
 }
 

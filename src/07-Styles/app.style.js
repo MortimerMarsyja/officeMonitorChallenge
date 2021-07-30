@@ -1,41 +1,62 @@
 import styled from "styled-components";
-import {blueColor,greyColors} from './colorPalette';
-import CSSRESET from './cssReset.style';
 
 const StyledApp = styled('div')`
-    ${CSSRESET}
-    font-family:Arial, Helvetica, sans-serif;
-    h1{
-        font-size:1.66em;
-        font-weight:700;
-        line-height: 1.2em;
-        margin: 0.66em 0;
-        color:${greyColors[700]};
-    },
-    h2{
-        font-size:1.44em;
-        font-weight: 600;
-        line-height: 1.2em;
-        margin: 0.60em 0;
-        color:${greyColors[600]};
-    },
-    h3{
-        font-size:1.6em;
-        font-weight:500;
-        margin: 0.54em 0;
-        color:${blueColor};
-    },
-    h4{
-        font-size:1.4em;
-        font-weight:400;
-        margin: 0.48em 0;
-        color:${greyColors[700]};
-    },
-    p{
-        font-size:1.1em;
-        width:200px;
-        line-height:1.2em;
+    #office {
+        margin: 0 auto;
+        width: 960px;
+        position: relative;
     }
+
+    header {
+        width: 100%;
+        height: 44px;
+        line-height: 44px;
+        margin-bottom: 15px;
+        text-align: center;
+        background-color: #54C7EF;
+    }
+
+
+
+    #logo {
+        width: 50px;
+        margin-top: 7px;
+    }
+
+
+    .widget {
+        height: 200px;
+        width: 300px;
+        float: left;
+        margin: 10px;
+        background-color: white;
+        font-size: 14px;
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .widget .title {
+        height: 25px;
+        line-height: 25px;
+        padding-left: 7px;
+        background-color: #F19063;
+        color: #fff;
+    }
+
+    .widget .content {
+        height: 175px;
+        text-align: center;
+        line-height: 170px;
+        font-size: 140px;
+    }
+
+    #mood {
+        float: none;
+        margin: 30px auto 0;
+    }
+
+ 
 `;
 
 export default StyledApp;
