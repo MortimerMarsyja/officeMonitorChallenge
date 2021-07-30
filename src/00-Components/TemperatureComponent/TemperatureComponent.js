@@ -6,7 +6,7 @@ const TemperatureComponent = ({ value }) => {
             Temperature
         </div>
         <div className="content" style={{ fontSize: '90px' }}>
-            {value.toFixed(2)}c
+            {value !== 22.5 ? (value * 100).toFixed(2) : value.toFixed(2)}c
         </div>
     </div >)
 }
