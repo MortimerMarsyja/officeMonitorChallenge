@@ -1,8 +1,8 @@
 ## Instructions 
 
-Git clone the project
-npm i
-npm start
+-Git clone the project
+-npm i
+-npm start
 
 ## Things that I would do with more time
 
